@@ -38,7 +38,7 @@ Foram então criadas duas rotas utilizando o Flask, uma ```/search``` com input 
 
 7.1) Verifique se o package manager PIP está instalado com o comando ```python3 -m pip --version```. Se não, siga as instruções em https://packaging.python.org/en/latest/tutorials/installing-packages/#
 
-7.2) Iniciar o ambiente virtual na pasta backend ```source weather-forecast-app-env/bin/activate```
+7.2) Iniciar o ambiente virtual executando o seguinte comando na pasta backend ```source weather-forecast-app-env/bin/activate```
 
 7.3) Instalar as dependencias necessárias na mesma pasta conforme abaixo, utilizando o gerenciador de pacotes PIP. 
 
