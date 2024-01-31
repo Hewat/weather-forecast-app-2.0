@@ -34,7 +34,21 @@ Foram então criadas duas rotas utilizando o Flask, uma ```/search``` com input 
 
 7 - Teste do backend
 
-Para testar o backend basta rodar o comando 'python3 app.py' dentro da pasta 'backend', que será iniciado o servidor na porta 5000. Então basta fazer uma chamada no Postman, por exemplo, com uma URL do tipo ```http://localhost:5000/search?city=São Paulo```. Você verá que a API trará o JSON com o retorno e também salvará todos os dados, um a um, no banco.
+7.1) Instale primeiramente o python. Se já tiver instalado, utilize ```python3 --version``` para checar a versão. Se não, instale a última versão 3.x de https://www.python.org/
+
+7.1) Verifique se o package manager PIP está instalado com o comando ```python3 -m pip --version```. Se não, siga as instruções em https://packaging.python.org/en/latest/tutorials/installing-packages/#
+
+7.2) Iniciar o ambiente virtual na pasta backend ```source weather-forecast-app-env/bin/activate```
+
+7.3) Instalar as dependencias necessárias na mesma pasta conforme abaixo, utilizando o gerenciador de pacotes PIP. 
+
+flask: pip install Flask
+flask_cors: pip install flask_cors
+requests: pip install requests
+
+Os outros módulos utilizados (os, json, datetime, sqlite3) necessários para o projeto já estão inclusos.
+
+7.4) Finalmente, Para testar o backend basta rodar o comando 'python3 app.py' dentro da pasta 'backend', que será iniciado o servidor na porta 5000. Então basta fazer uma chamada no Postman, por exemplo, com uma URL do tipo ```http://localhost:5000/search?city=São Paulo```. Você verá que a API trará o JSON com o retorno e também salvará todos os dados, um a um, no banco.
 
 ## Descrição de como foi construir parcialmente o frontend com React e Javascript
 
