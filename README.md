@@ -46,7 +46,7 @@ flask: pip install Flask
 flask_cors: pip install flask_cors
 requests: pip install requests
 
-Os outros módulos utilizados (os, json, datetime, sqlite3) necessários para o projeto já estão inclusos.
+Os outros módulos utilizados (os, json, datetime, sqlite3) necessários para o projeto já estão inclusos na biblioteca padrão do pyhton.
 
 7.4) Finalmente, Para testar o backend basta rodar o comando 'python3 app.py' dentro da pasta 'backend', que será iniciado o servidor na porta 5000. Então basta fazer uma chamada no Postman, por exemplo, com uma URL do tipo ```http://localhost:5000/search?city=São Paulo```. Você verá que a API trará o JSON com o retorno e também salvará todos os dados, um a um, no banco.
 
