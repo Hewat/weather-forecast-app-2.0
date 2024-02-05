@@ -59,8 +59,6 @@ def get_weather(city):
                 grouped_by_day_forecast_data[current_date]["min_day_temp"] = 100
                 has_initialized_max_min = True
 
-            # print("grouped_by_day_forecast_data[current_date]!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", grouped_by_day_forecast_data[current_date])    
-
             formatted_forecast = {
                 "datetime": unix_utc_to_local_dict(forecast["dt"], forecast_data["city"]["timezone"]),
                 "description": forecast["weather"][0]["description"].title(),
@@ -83,7 +81,7 @@ def get_weather(city):
             # Append the element with the formatex forecast to its relative "day_forecast_list" key.
             grouped_by_day_forecast_data[current_date]["day_forecast_list"].append(formatted_forecast)
 
-# Now formatted_forecast_data is a dictionary where keys are dates and values are arrays of forecasts for those dates
+            # Now formatted_forecast_data is a dictionary where keys are dates and values are arrays of forecasts for those dates
 
     else:
         return {"error": "Failed to retrieve forecast data"}    
