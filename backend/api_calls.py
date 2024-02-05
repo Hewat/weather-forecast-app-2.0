@@ -40,12 +40,17 @@ def get_weather(city):
         forecast_data = json.loads(forecast_response.content.decode())
         forecast_periods_list = forecast_data["list"]
 
-        grouped_by_day_forecast_data = {}
+        grouped_by_day_forecast_data = {
+            "max_day_temp" : -100,
+            "min_day_temp" : 100,
+            "day_forecast_list" : {},
+        }
+
         for forecast in forecast_periods_list:
             current_date = unix_utc_to_local_dict(forecast["dt"], forecast_data["city"]["timezone"])["short_date"]
 
-            if current_date not in grouped_by_day_forecast_data:
-                grouped_by_day_forecast_data[current_date] = []
+            if current_date not in grouped_by_day_forecast_data["day_forecast_list"]:
+                grouped_by_day_forecast_data["day_forecast_list"][current_date] = []
 
             formatted_forecast = {
                 "datetime": unix_utc_to_local_dict(forecast["dt"], forecast_data["city"]["timezone"]),
@@ -57,7 +62,17 @@ def get_weather(city):
                 "humidity": forecast["main"]["humidity"],
                 "icon_url": build_weather_icon_url(forecast["weather"][0]["icon"]),
             }
-            grouped_by_day_forecast_data[current_date].append(formatted_forecast)
+
+            # Check the highest and lowest temperatures within a day
+
+            if formatted_forecast["forecast_temp"] > grouped_by_day_forecast_data["max_day_temp"]:
+                grouped_by_day_forecast_data["max_day_temp"]  = formatted_forecast["forecast_temp"]
+
+            if formatted_forecast["forecast_temp"] < grouped_by_day_forecast_data["min_day_temp"]:
+                grouped_by_day_forecast_data["min_day_temp"]  = formatted_forecast["forecast_temp"]
+                
+            # Append the element with the formatex forecast to its relative "day_forecast_list" key.
+            grouped_by_day_forecast_data["day_forecast_list"][current_date].append(formatted_forecast)
 
 # Now formatted_forecast_data is a dictionary where keys are dates and values are arrays of forecasts for those dates
 
