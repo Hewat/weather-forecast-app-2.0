@@ -33,7 +33,7 @@ def insert_search(connection, fetched_data):
         # Insere os dados na tabela
 
     serialized_data = json.dumps(fetched_data, indent=4)
-    timestamp = datetime.datetime.now().isoformat()  # Adjust as needed for your desired timestamp format
+    timestamp = datetime.datetime.now().isoformat()
     cursor.execute("""
         INSERT INTO weather (insertion_time, fetched_data) VALUES (?, ?)
     """, (timestamp, serialized_data))
