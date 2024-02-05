@@ -40,27 +40,21 @@ No arquivo app.py criei duas chamadas nas APIs da https://openweathermap.org/, u
 
 3 - Criação de um dicionário com os dados da API
 
-Executando essas duas chamadas foi criado um dicionário weather com os dados que a aplicação necessita, conforme abaixo.
+Executando essas duas chamadas foi criado um dicionário weather com os dados que a aplicação necessita. Os dados foram tratados no arquivo api_calls.py, transformando o retorno original da API em um retorno mais adequado para se trabalhar depois no frontend. O formato do retorno transformado é:.
 
 ```weather = {
-"city": forecast_data["city"]["name"],
-"country": forecast_data["city"]["country"],
-"current_weather": current_weather_data,
-"forecast": forecast_data["list"],
-}
+        "city": forecast_data["city"]["name"],
+        "country": forecast_data["city"]["country"],
+        "current_weather": current_weather_treated_data,
+        "forecast": grouped_by_day_forecast_data,
+    }
 ```
-
-Para testar é necessário utilizar `npm start`, que iniciará um servidor na porta 3000. Foi utilizada uma biblioteca de CORS para permitir a comunicação entre o backend e o frontend que estão em portas diferentes. Lembrando que o servidor backend precisa estar rodando também na porta 5000 com o comando 'python3 app.py'.
 
 4 - Criação do banco de dados SQLite
 
-Criei o arquivo `database.py`, o qual cria a tabela no banco sqLite com os dados de tempo do instante atual (prefixo 'current_weather') e de previsão do tempo (prefixo 'forecast')
+Criei o arquivo `database.py`, o qual cria a tabela no banco sqLite com os dados de tempo do instante atual da busca na API e os dados retornados da API.
 
-5 - Tratamento dos dados e inserção no banco de dados
-
-No mesmo arquivo `database.py` é feito um tratamento com os dados provenientes do dicionário weather, separando cada dado e iterando cada linha para poder ser inserido no banco de dados corretanmente.
-
-6 - Criação das rotas de API
+5 - Criação das rotas de API
 
 Foram então criadas duas rotas utilizando o Flask, uma `/search` com input de parametro com a cidade que deseja buscar e armazena os dados na tabela `'weather'` do banco de dados e a outra `/history` que busca no banco de dados o histórico que foi salvo nas buscas anteriores.
 
