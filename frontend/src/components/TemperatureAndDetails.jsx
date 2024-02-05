@@ -26,7 +26,7 @@ function TemperatureAndDetails({
 }) {
   return (
     <div>
-      <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
+      <div className="flex items-center justify-center py-6 text-xl text-white">
         <p>{description}</p>
       </div>
 
@@ -67,12 +67,12 @@ function TemperatureAndDetails({
         <p className="font-light">|</p>
         <UilArrowUp />
         <p className="font-light">
-          High: <span className="font-medium ml-1">{max_day_temp}</span>
+          High: <span className="font-medium ml-1">{max_day_temp}°C</span>
         </p>
         <p className="font-light">|</p>
         <UilArrowDown />
         <p className="font-light">
-          Low: <span className="font-medium ml-1">{min_day_temp}</span>
+          Low: <span className="font-medium ml-1">{min_day_temp}°C</span>
         </p>
       </div>
     </div>

@@ -3,21 +3,15 @@ import React from "react";
 import { UilTemperature, UilTear, UilWind } from "@iconscout/react-unicons";
 
 function ForecastDetails({ period_forecast_input, forecast_date }) {
-  console.log(
-    "period_forecast_input",
-    period_forecast_input,
-    "key",
-    forecast_date
-  );
   return (
     <div>
-      <div className="flex flex-row items-center gap-4 my-3">
+      <div className="flex flex-row items-center  gap-4 my-3">
         <div className="flex w-36 justify-end">
           <div className="items-center mr-1 text-sm">
             {period_forecast_input.datetime.time}
           </div>
         </div>
-        <div className="flex border border-gray-300 rounded gap-2 w-full">
+        <div className="flex bg-gray-900 rounded gap-2 w-full">
           <div className="flex items-center">
             <img
               src={period_forecast_input.icon_url}

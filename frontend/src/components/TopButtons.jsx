@@ -1,14 +1,14 @@
 import React from "react";
 
-function TopButtons() {
+function TopButtons({ setCity }) {
   const cities = [
     {
       id: 1,
-      title: "London",
+      title: "São Paulo",
     },
     {
       id: 2,
-      title: "São Paulo",
+      title: "Toronto",
     },
     {
       id: 3,
@@ -20,14 +20,18 @@ function TopButtons() {
     },
     {
       id: 5,
-      title: "Paris",
+      title: "Sidney",
     },
   ];
 
   return (
     <div className="flex items-center justify-around my-6">
       {cities.map((city) => (
-        <button key={city.id} className="text-white text-lg font-medium">
+        <button
+          key={city.id}
+          className="text-white text-lg font-medium"
+          onClick={() => setCity(city.title)}
+        >
           {city.title}
         </button>
       ))}
