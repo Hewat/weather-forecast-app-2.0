@@ -89,5 +89,3 @@ Foram criados 7 componentes dentro da pasta components. Na ordem: TopButtons, In
 3 - Os componentes foram então renderizados no App.js, sendo feitas iterações para repetir a exibição do componente para dados em arrays, como a lista de dias da previsão do tempo e os detalhes da previsão para cada dia.
 
 4 - Foram utilizados ícones da dependencia "iconscout" e a estilização feita com tailwind css.
-
-4 - Teste do frontend
