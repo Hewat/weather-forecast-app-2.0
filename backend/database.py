@@ -1,5 +1,6 @@
 import datetime
 import sqlite3
+import json
 
 def connect_to_database():
     """Conecta ao banco de dados."""
@@ -7,8 +8,9 @@ def connect_to_database():
     return sqlite3.connect("linx-weather-database.sqlite3")
 
 
-def insert_search(connection, city, country, current_weather, forecast):
+def insert_search(connection, fetched_data):
     """Insere uma pesquisa no banco de dados."""
+
 
     cursor = connection.cursor()
 
@@ -22,100 +24,19 @@ def insert_search(connection, city, country, current_weather, forecast):
         cursor.execute("""
             CREATE TABLE weather(
                 insertion_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                city TEXT,
-                country TEXT,               
-                date DATE,
-                current_weather_temp REAL,
-                current_weather_feels_like_temp REAL,
-                current_weather_overall_title TEXT,
-                current_weather_overall_description TEXT,
-                current_weather_humidity REAL,
-                current_weather_wind_speed REAL,
-                forecast_temp REAL,
-                forecast_feels_like_temp REAL,
-                forecast_weather_overall_title TEXT,
-                forecast_weather_overall_description TEXT,
-                forecast_humidity REAL,
-                forecast_wind_speed REAL
+                fetched_data TEXT
             )
         """)  
 
-    # Trata os dados de forecast, que é uma lista de dictionaries, em um array por propriedade 
+
     
-    current_weather_temp =  current_weather["main"]["temp"]
-    current_weather_feels_like_temp = current_weather["main"]["feels_like"]
-    current_weather_overall_title = current_weather["weather"][0]["main"]
-    current_weather_overall_description = current_weather["weather"][0]["description"]
-    current_weather_humidity = current_weather["main"]["humidity"]
-    current_weather_wind_speed = current_weather["wind"]["speed"]
+        # Insere os dados na tabela
 
-
-    date = []
-    forecast_temp = []
-    forecast_feels_like_temp = []
-    forecast_weather_overall_title = []
-    forecast_weather_overall_description = []
-    forecast_humidity = []
-    forecast_wind_speed = []
-
-    for weather_data in forecast:
-        date.append(weather_data["dt_txt"])
-        forecast_temp.append(weather_data["main"]["temp"])
-        forecast_feels_like_temp.append(weather_data["main"]["feels_like"])
-        forecast_weather_overall_title.append(weather_data["weather"][0]["main"])
-        forecast_weather_overall_description.append(weather_data["weather"][0]["description"])
-        forecast_humidity.append(weather_data["main"]["humidity"])
-        forecast_wind_speed.append(weather_data["wind"]["speed"])
-
-    # Insere os dados
-
-    tuplas = [
-        (
-            datetime.datetime.now(),
-            city,
-            country,
-            date,
-            forecast_temp,
-            forecast_feels_like_temp,
-            forecast_weather_overall_title,
-            forecast_weather_overall_description,
-            forecast_humidity,
-            forecast_wind_speed,
-            current_weather_temp,
-            current_weather_feels_like_temp,
-            current_weather_overall_title,
-            current_weather_overall_description,
-            current_weather_humidity,
-            current_weather_wind_speed
-        )
-        for date, forecast_temp, forecast_feels_like_temp, forecast_weather_overall_title, forecast_weather_overall_description, forecast_humidity, forecast_wind_speed in zip(
-            date, forecast_temp, forecast_feels_like_temp, forecast_weather_overall_title, forecast_weather_overall_description, forecast_humidity, forecast_wind_speed
-        )
-    ]
-        # Insere as tuplas no banco de dados
-    for tupla in tuplas:
-        cursor.execute(
-            """INSERT INTO weather (
-                insertion_time,
-                city,
-                country,
-                date,
-                forecast_temp,
-                forecast_feels_like_temp,
-                forecast_weather_overall_title,
-                forecast_weather_overall_description,
-                forecast_humidity,
-                forecast_wind_speed,
-                current_weather_temp,
-                current_weather_feels_like_temp,
-                current_weather_overall_title,
-                current_weather_overall_description,
-                current_weather_humidity,
-                current_weather_wind_speed
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            tupla,
-        )
+    serialized_data = json.dumps(fetched_data, indent=4)
+    timestamp = datetime.datetime.now().isoformat()  # Adjust as needed for your desired timestamp format
+    cursor.execute("""
+        INSERT INTO weather (insertion_time, fetched_data) VALUES (?, ?)
+    """, (timestamp, serialized_data))
 
     connection.commit()
     cursor.close()
